@@ -1,31 +1,32 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Panel;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
+import Configuration.Settings;
+import component.BasicPanel;
 import component.ScreenMenu;
-import component.SidePanel;
 
 public class Screen {
 
     private Dimension screenDimension;
     private JFrame mainFrame = new JFrame();
     private JMenuBar menuBar;
-    private Panel sidePanel;
+    private ArrayList<BasicPanel> basicPanels;
+    private BasicPanel currentPanel;
     private String title;
+
+    private Settings settings;
 
     // Constructor
     // Sets Jframe dimensions and adds menu to the frame
-    public Screen(Dimension screenDimension, String title){
+    public Screen(Dimension screenDimension, String title, Settings setting) throws Exception{
+        this.settings = setting;
+
         this.screenDimension = screenDimension;
         this.title = title;
         
@@ -36,13 +37,15 @@ public class Screen {
         setFrameTitle();
         setFrameDimension();
 
-
         addMenuToScreen();
         // this.screenPanes = getAllPaneInstances();
         // this.currentPane = setCurrentPane();
-        // Creates and adds side panel to the screen frame
-        addSidePanelToScreen();
-        showCurrentMainPanel();
+        
+        loadBasicPanel();   
+        setActivePanel();
+
+        // Creates and shows current main panel
+        // showCurrentBasicPanel();
     }
 
     private void setFrameTitle(){
@@ -64,19 +67,51 @@ public class Screen {
         return new ScreenMenu(screenDimension);
     }
 
-    private void addSidePanelToScreen(){
-        sidePanel = getSidePanel(20, 100);
-        mainFrame.add(sidePanel);
+    // Loads all availabile panels from settings
+    private void loadBasicPanel(){
+
+        basicPanels = settings.getPanelInstances();
+    }
+    
+    // Set any one of the panel which is active
+    private void setActivePanel() throws Exception{
+
+        try {
+            if (validateActiveStates()){
+    
+                basicPanels.forEach((panel)-> {
+                      
+                    if (panel.isActive()){
+                        currentPanel = panel;
+                        mainFrame.add(panel);
+                    }
+    
+                });
+            }
+        } catch (Exception e) {
+            // Utils.logError(e.getMessage());            
+        }
 
     }
 
-    private Panel getSidePanel(int percentWidth, int percentHeight ){
-        
-        int width = (int) ((percentWidth / 100.0) * screenDimension.width);
-        int height = (int) ((percentHeight / 100.0) * screenDimension.height);
-        System.out.println(width);
-        
-        return new SidePanel(width, height);
+    // checks only one panel is active else throws error
+    private boolean validateActiveStates() throws Exception{
+
+        int activePanels = 0;
+
+        for(BasicPanel panel: basicPanels){
+            
+            if(panel.isActive()){
+                activePanels ++;
+            }
+        }
+
+        if (activePanels > 1){
+            throw new Exception("Only one panel can be active at a time");
+        }
+        else{
+            return true;
+        }
     }
 
     public void show(){

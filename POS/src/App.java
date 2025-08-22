@@ -1,12 +1,10 @@
 
 
 import view.Screen;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Toolkit;
+
+import Configuration.Settings;
 
 
 public class App {
@@ -15,7 +13,7 @@ public class App {
         return Toolkit.getDefaultToolkit();
     }
 
-    private static void Start() {
+    private static void Start() throws Exception {
 
         // Setting app paramenters
         Toolkit screenDimention = GetScreenProperties();
@@ -28,9 +26,11 @@ public class App {
         // Connection to Database
         // db.connect();
 
+        Settings defaultSettings = new Settings();
+
         // Screen instance with given screen dimentions and showing it
-        Screen intital = new Screen(screenDimension, title);
-        intital.show();
+        Screen appScreen = new Screen(screenDimension, title, defaultSettings);
+        appScreen.show();
         
     
     }
