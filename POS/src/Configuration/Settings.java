@@ -3,7 +3,7 @@ package Configuration;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import component.BasicPanel;
+import Component.BasicPanel;
 
 public class Settings {
     

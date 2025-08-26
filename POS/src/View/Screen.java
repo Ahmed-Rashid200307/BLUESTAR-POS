@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
+import Component.BasicPanel;
+import Component.ScreenMenu;
 import Configuration.Settings;
-import component.BasicPanel;
-import component.ScreenMenu;
 
 public class Screen {
 
@@ -24,7 +24,7 @@ public class Screen {
 
     // Constructor
     // Sets Jframe dimensions and adds menu to the frame
-    public Screen(Dimension screenDimension, String title, Settings setting) throws Exception{
+    public Screen(Dimension screenDimension, String title, Settings setting){
         this.settings = setting;
 
         this.screenDimension = screenDimension;
@@ -74,7 +74,7 @@ public class Screen {
     }
     
     // Set any one of the panel which is active
-    private void setActivePanel() throws Exception{
+    private void setActivePanel(){
 
         try {
             if (validateActiveStates()){
@@ -84,6 +84,7 @@ public class Screen {
                     if (panel.isActive()){
                         currentPanel = panel;
                         mainFrame.add(panel);
+                        
                     }
     
                 });
