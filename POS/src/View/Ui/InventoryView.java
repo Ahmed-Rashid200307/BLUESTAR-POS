@@ -4,11 +4,11 @@ import java.awt.Dimension;
 
 import Component.BasicPanel;
 
-public class ProductView extends BasicPanel{
+public class InventoryView extends BasicPanel{
 
     private String name;
 
-    public ProductView(String name,Dimension panelDimension, boolean hasSidePanel) {
+    public InventoryView(String name,Dimension panelDimension, boolean hasSidePanel) {
         super(panelDimension, hasSidePanel);
         //TODO Auto-generated constructor stub
 

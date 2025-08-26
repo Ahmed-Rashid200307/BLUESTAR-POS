@@ -1,10 +1,12 @@
 
 
-import view.Screen;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import Configuration.Settings;
+import View.Screen;
+import controller.CoreController;
+import controller.Database;
 
 
 public class App {
@@ -13,7 +15,7 @@ public class App {
         return Toolkit.getDefaultToolkit();
     }
 
-    private static void Start() throws Exception {
+    private static void Start() {
 
         // Setting app paramenters
         Toolkit screenDimention = GetScreenProperties();
@@ -22,15 +24,18 @@ public class App {
         
         String title = "BLUESTAR POS SYSTEM";
         
-        // Database db = new Database();
-        // Connection to Database
-        // db.connect();
+        Database db = new Database();
 
         Settings defaultSettings = new Settings();
 
         // Screen instance with given screen dimentions and showing it
         Screen appScreen = new Screen(screenDimension, title, defaultSettings);
-        appScreen.show();
+        
+        // Connects everything together db items to screen display, handles events
+        CoreController controller = new CoreController(appScreen, db, defaultSettings);
+
+        // sets up controller dependensies
+        controller.Initialize();
         
     
     }
