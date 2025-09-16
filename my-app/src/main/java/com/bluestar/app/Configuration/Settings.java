@@ -21,7 +21,6 @@ public class Settings {
     public Settings(){
 
         readConfig();
-        addPanelsToList();
 
 
     }
@@ -31,12 +30,12 @@ public class Settings {
      * The panels are added in the order they are in the configuration file
      * The active property is used to determine if the panel should be active or not
      */
-    private void addPanelsToList(){
+    public void setupPanels(){
         jsonobj.get("views").getAsJsonArray().forEach((panel) -> {
 
             try {
                 JsonObject jsonobj = panel.getAsJsonObject();
-                System.out.println(jsonobj.get("Value").getAsString());
+                System.out.println(jsonobj.get("value").getAsString());
                 Class<?> c = Class.forName(jsonobj.get("Value").getAsString());
                 Constructor<?> cons = c.getConstructor(Dimension.class, boolean.class);
                 BasicPanel object = (BasicPanel)cons.newInstance(new Dimension(400, 400), jsonobj.get("enabled").getAsBoolean());

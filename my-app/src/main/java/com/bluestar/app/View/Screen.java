@@ -40,9 +40,7 @@ public class Screen {
         addMenuToScreen();
         // this.screenPanes = getAllPaneInstances();
         // this.currentPane = setCurrentPane();
-        
-        loadBasicPanel();   
-        setActivePanel();
+
 
         // Creates and shows current main panel
         // showCurrentBasicPanel();
@@ -68,13 +66,13 @@ public class Screen {
     }
 
     // Loads all availabile panels from settings
-    private void loadBasicPanel(){
+    public void loadBasicPanel(){
 
         basicPanels = settings.getPanelInstances();
     }
     
     // Set any one of the panel which is active
-    private void setActivePanel(){
+    public void setActivePanel(){
 
         try {
             if (validateActiveStates()){

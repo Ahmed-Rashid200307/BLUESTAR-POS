@@ -18,11 +18,23 @@ public class CoreController {
         this.mainScreen = mainScreen;
         this.db = db;
         this.defaulSettings = defaultSettings;
-        mainScreen.show();
         
     }
 
+    /**
+     * Sets up the whole application.
+     * 
+     * This method sets up the settings from the configuration file, shows the main screen and connects to the database.
+     * If there is any error connecting to the database, it will be logged.
+     */
     public void Initialize(){
+
+        defaulSettings.setupPanels();
+
+                
+        mainScreen.loadBasicPanel();   
+        mainScreen.setActivePanel();
+        mainScreen.show();
     
         try {
             db.Connect(defaulSettings.getSetting("dbUrl") ,defaulSettings.getSetting("dbUser"), defaulSettings.getSetting("dbPassword"));
