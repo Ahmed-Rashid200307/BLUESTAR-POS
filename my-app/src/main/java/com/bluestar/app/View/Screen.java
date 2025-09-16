@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import com.bluestar.app.Component.BasicPanel;
 import com.bluestar.app.Component.ScreenMenu;
 import com.bluestar.app.Configuration.Settings;
+import com.bluestar.app.controller.Utils;
 
 public class Screen {
 
@@ -31,8 +32,7 @@ public class Screen {
         this.title = title;
         
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.getContentPane().setBackground(new Color(230, 239, 255));;
-        mainFrame.setLayout(null);
+        mainFrame.getContentPane().setBackground(new Color(255, 240, 230));
 
         setFrameTitle();
         setFrameDimension();
@@ -90,7 +90,7 @@ public class Screen {
                 });
             }
         } catch (Exception e) {
-            // Utils.logError(e.getMessage());            
+            Utils.logError(e);            
         }
 
     }

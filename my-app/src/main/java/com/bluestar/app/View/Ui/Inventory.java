@@ -4,11 +4,11 @@ import java.awt.Dimension;
 
 import com.bluestar.app.Component.BasicPanel;
 
-public class InventoryView extends BasicPanel{
+public class Inventory extends BasicPanel{
 
     private String name;
 
-    public InventoryView(String name,Dimension panelDimension, boolean hasSidePanel) {
+    public Inventory(String name,Dimension panelDimension, boolean hasSidePanel) {
         super(panelDimension, hasSidePanel);
         //TODO Auto-generated constructor stub
 
