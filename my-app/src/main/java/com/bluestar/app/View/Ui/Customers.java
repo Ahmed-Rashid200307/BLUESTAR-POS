@@ -6,8 +6,8 @@ import com.bluestar.app.Component.BasicPanel;
 
 public class Customers extends BasicPanel{
 
-    public Customers(Dimension panelDimension, boolean hasSidePanel) {
-        super(panelDimension, hasSidePanel);
+    public Customers(String name, boolean hasSidePanel ,Dimension sidePanelDimension) {
+        super(name ,hasSidePanel, sidePanelDimension);
         //TODO Auto-generated constructor stub
     }
     

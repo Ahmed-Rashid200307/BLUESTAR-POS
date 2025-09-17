@@ -14,7 +14,6 @@ import com.google.gson.stream.JsonReader;
 
 public class Settings {
     
-    private ArrayList<BasicPanel> panels = new ArrayList<>();
     private Gson gson = new Gson();
     private JsonObject jsonobj;
     
@@ -25,43 +24,10 @@ public class Settings {
 
     }
 
-    /**
-     * Parses the panels from the configuration file and adds them to the panels list
-     * The panels are added in the order they are in the configuration file
-     * The active property is used to determine if the panel should be active or not
-     */
-    public void setupPanels(){
-        jsonobj.get("views").getAsJsonArray().forEach((panel) -> {
-
-            try {
-                JsonObject jsonobj = panel.getAsJsonObject();
-                System.out.println(jsonobj.get("value").getAsString());
-                Class<?> c = Class.forName(jsonobj.get("Value").getAsString());
-                Constructor<?> cons = c.getConstructor(Dimension.class, boolean.class);
-                BasicPanel object = (BasicPanel)cons.newInstance(new Dimension(400, 400), jsonobj.get("enabled").getAsBoolean());
-                
-                if(jsonobj.get("active").getAsBoolean()){
-                    object.setActive();
-                    panels.add(object);
-                }
-                else{
-                    panels.add(object);
-                }
-            } catch (Exception e) {
-                Utils.logError(e);
-            }
-        });
-    } 
-
-    /**
-     * Gets all panel instances from the configuration file.
-     * 
-     * @return a list of panel instances
-     */
-    public ArrayList<BasicPanel> getPanelInstances() {
-
-        return panels;
+    public JsonObject getJSON(){
+        return jsonobj;
     }
+
 
     /**
      * Reads the configuration file and parses it into a json object.

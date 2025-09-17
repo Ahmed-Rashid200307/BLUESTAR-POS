@@ -4,15 +4,11 @@ import java.awt.Dimension;
 
 import com.bluestar.app.Component.BasicPanel;
 
-public class Inventory extends BasicPanel{
+public class Home extends BasicPanel {
 
-
-    public Inventory(String name, boolean hasSidePanel ,Dimension sidePanelDimension) {
+    public Home(String name, boolean hasSidePanel ,Dimension sidePanelDimension) {
         super(name ,hasSidePanel, sidePanelDimension);
         //TODO Auto-generated constructor stub
-
-
-        // setStructure();
     }
     
 }

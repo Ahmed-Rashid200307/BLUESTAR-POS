@@ -1,1 +1,1 @@
-Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+com.bluestar.app.View.Ui.Inventory.<init>(java.lang.String,java.awt.Dimension,boolean)

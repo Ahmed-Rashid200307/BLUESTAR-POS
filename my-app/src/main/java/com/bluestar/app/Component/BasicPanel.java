@@ -2,18 +2,17 @@ package com.bluestar.app.Component;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Panel;
 
-public class BasicPanel extends Panel{
+import javax.swing.JPanel;
 
-    private Dimension panelDimension;
+public class BasicPanel extends JPanel{
+
+    private String name;
     private boolean active = false;
 
-    public BasicPanel(Dimension panelDimension, boolean hasSidePanel){
+    public BasicPanel(String name, boolean hasSidePanel ,Dimension sidePanelDimension){
         
-        this.panelDimension = panelDimension;
-        this.setBackground(new Color(30,30,30));
-        this.setSize(panelDimension);
+        this.name = name;
     }
 
     public void setActive(){

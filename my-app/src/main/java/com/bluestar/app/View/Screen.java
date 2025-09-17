@@ -32,8 +32,7 @@ public class Screen {
         this.title = title;
         
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.getContentPane().setBackground(new Color(255, 240, 230));
-
+        mainFrame.getContentPane().setBackground(new Color(0, 0, 0));
         setFrameTitle();
         setFrameDimension();
 
@@ -66,13 +65,13 @@ public class Screen {
     }
 
     // Loads all availabile panels from settings
-    public void loadBasicPanel(){
+    public void setPanelsToPane(ArrayList<BasicPanel> basicPanels){
 
-        basicPanels = settings.getPanelInstances();
+        this.basicPanels = basicPanels;
     }
     
     // Set any one of the panel which is active
-    public void setActivePanel(){
+    public void initializeActivePanel(){
 
         try {
             if (validateActiveStates()){
@@ -81,7 +80,7 @@ public class Screen {
                       
                     if (panel.isActive()){
                         currentPanel = panel;
-                        mainFrame.add(panel);
+                        mainFrame.add(currentPanel);
                         
                     }
     
