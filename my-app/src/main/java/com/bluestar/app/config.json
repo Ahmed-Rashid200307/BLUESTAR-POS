@@ -4,12 +4,12 @@
     "dbUser" : "bluestar",
     "dbPassword" : "password",
     "views": [
-        { "value": "com.bluestar.app.View.Ui.Home", "visible": true, "enabled": true },
-        { "value": "com.bluestar.app.View.Ui.Transaction", "visible": false, "enabled": false },
-        { "value": "com.bluestar.app.View.Ui.Report", "visible": false, "enabled": false },
-        { "value": "com.bluestar.app.View.Ui.Settings", "visible": false, "enabled": false },
-        { "value": "com.bluestar.app.View.Ui.Customers", "visible": false, "enabled": false },
-        { "value": "com.bluestar.app.View.Ui.Supplier", "visible": false, "enabled": false },
-        { "value": "com.bluestar.app.View.Ui.Inventory", "visible": false, "enabled": false }
+        { "value": "com.bluestar.app.View.Ui.Home", "name": "Home", "visible": true, "enabled": true },
+        { "value": "com.bluestar.app.View.Ui.Transaction", "name": "Transaction", "visible": false, "enabled": false },
+        { "value": "com.bluestar.app.View.Ui.Report", "name": "Report", "visible": false, "enabled": false },
+        { "value": "com.bluestar.app.View.Ui.Settings", "name": "Settings", "visible": false, "enabled": false },
+        { "value": "com.bluestar.app.View.Ui.Customers", "name": "Customers", "visible": false, "enabled": false },
+        { "value": "com.bluestar.app.View.Ui.Supplier", "name": "Supplier", "visible": false, "enabled": false },
+        { "value": "com.bluestar.app.View.Ui.Inventory", "name": "Inventory", "visible": false, "enabled": false }
     ]
 }

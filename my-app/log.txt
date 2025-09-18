@@ -1,1 +1,1 @@
-com.bluestar.app.View.Ui.Inventory.<init>(java.lang.String,java.awt.Dimension,boolean)
+class java.lang.Boolean cannot be cast to class java.lang.String (java.lang.Boolean and java.lang.String are in module java.base of loader 'bootstrap')

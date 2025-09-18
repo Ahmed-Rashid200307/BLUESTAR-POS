@@ -2,7 +2,10 @@ package com.bluestar.app.View;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -11,13 +14,14 @@ import com.bluestar.app.Component.BasicPanel;
 import com.bluestar.app.Component.ScreenMenu;
 import com.bluestar.app.Configuration.Settings;
 import com.bluestar.app.controller.Utils;
+import com.google.gson.JsonObject;
 
 public class Screen {
 
     private Dimension screenDimension;
     private JFrame mainFrame = new JFrame();
     private JMenuBar menuBar;
-    private ArrayList<BasicPanel> basicPanels;
+    private ArrayList<BasicPanel> panels = new ArrayList<>();
     private BasicPanel currentPanel;
     private String title;
 
@@ -65,10 +69,7 @@ public class Screen {
     }
 
     // Loads all availabile panels from settings
-    public void setPanelsToPane(ArrayList<BasicPanel> basicPanels){
 
-        this.basicPanels = basicPanels;
-    }
     
     // Set any one of the panel which is active
     public void initializeActivePanel(){
@@ -76,7 +77,7 @@ public class Screen {
         try {
             if (validateActiveStates()){
     
-                basicPanels.forEach((panel)-> {
+                panels.forEach((panel)-> {
                       
                     if (panel.isActive()){
                         currentPanel = panel;
@@ -97,7 +98,7 @@ public class Screen {
 
         int activePanels = 0;
 
-        for(BasicPanel panel: basicPanels){
+        for(BasicPanel panel: panels){
             
             if(panel.isActive()){
                 activePanels ++;
@@ -116,4 +117,36 @@ public class Screen {
         mainFrame.setVisible(true);
     }
     
+            /**
+     * Parses the panels from the configuration file and adds them to the panels list
+     * The panels are added in the order they are in the configuration file
+     * The active property is used to determine if the panel should be active or not
+     */
+    public void setupPanels(Iterator<Map<String, Object>> panelsIterator){
+        
+        while(panelsIterator.hasNext()){
+            Map<String, Object> panel = panelsIterator.next();
+            System.out.println(panel.get("value"));
+            try {
+                Class<?> c = Class.forName(panel.get("value").toString());
+                Constructor<?> cons = c.getConstructor(boolean.class ,String.class, boolean.class ,Dimension.class);
+                BasicPanel object = (BasicPanel)cons.newInstance((String)panel.get("name")
+                , (boolean)panel.get("enabled")
+                , new Dimension(40, 40));
+                
+                if((boolean) panel.get("visible")){
+                    object.setActive();
+                    panels.add(object);
+                }
+                else{
+                    panels.add(object);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+                Utils.logError(e);
+            }
+            
+        }
+        System.out.println(panels.size());
+    } 
 }

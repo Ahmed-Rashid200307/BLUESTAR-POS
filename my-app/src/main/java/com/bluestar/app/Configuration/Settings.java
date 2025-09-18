@@ -1,21 +1,19 @@
 package com.bluestar.app.Configuration;
 
-import java.awt.Dimension;
 import java.io.FileReader;
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import com.bluestar.app.Component.BasicPanel;
 import com.bluestar.app.controller.Utils;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 public class Settings {
-    
-    private Gson gson = new Gson();
-    private JsonObject jsonobj;
+
+    private Map<String, Object> items;
     
     public Settings(){
 
@@ -24,21 +22,25 @@ public class Settings {
 
     }
 
-    public JsonObject getJSON(){
-        return jsonobj;
+    public Map<String, Object> getJSON(){
+        return items;
     }
 
 
+
     /**
-     * Reads the configuration file and parses it into a json object.
-     * It then saves the json object to the class instance variable.
-     * If there is an error while reading the file, it logs the error.
-     */
+     * Reads the configuration file located at the root of the project.
+     * The configuration file is in JSON format.
+     * This method reads the file and parses it into a Map which can be accessed
+     * using the getJSON() method. If there is any error reading the file, it will
+     * be logged.
+     * */
     private void readConfig(){
 
-        try {       
+        try {
+            Gson gson = new Gson();
             JsonReader reader = new JsonReader(new FileReader(System.getProperty("user.dir") + "/src/main/java/com/bluestar/app/config.json"));
-            jsonobj = JsonParser.parseReader(reader).getAsJsonObject();   
+            items = gson.fromJson(reader, Map.class);
         
         } catch (Exception e) {
             Utils.logError(e);
@@ -51,8 +53,12 @@ public class Settings {
      * @param item the name of the setting to retrieve
      * @return the value of the setting as a string
      */
-    public String getSetting(String item){
+    public Object getSetting(String item){
 
-        return jsonobj.get(item).getAsString();
+        return items.get(item);
+    }
+
+    public List<Map<String, Object>> getSettingAsListMap(String item){
+        return (List<Map<String, Object>>) items.get(item);
     }
 }

@@ -2,6 +2,11 @@ package com.bluestar.app.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.mysql.cj.protocol.Resultset;
 
 public class Database {
     private Connection connection;
@@ -31,5 +36,17 @@ public class Database {
             Utils.logError(e);
         }
 
+    }
+
+    public ResultSet query(String query){
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet res = stmt.executeQuery(query);
+            return res;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 }

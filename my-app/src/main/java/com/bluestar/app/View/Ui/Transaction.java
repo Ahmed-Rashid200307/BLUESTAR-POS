@@ -6,8 +6,8 @@ import com.bluestar.app.Component.BasicPanel;
 
 public class Transaction extends BasicPanel{
 
-    public Transaction(String name, boolean hasSidePanel ,Dimension sidePanelDimension) {
-        super(name, hasSidePanel, sidePanelDimension);
+    public Transaction(boolean isActive ,String name, boolean hasSidePanel ,Dimension sidePanelDimension) {
+        super(isActive, name, hasSidePanel, sidePanelDimension);
         //TODO Auto-generated constructor stub
     }
     
