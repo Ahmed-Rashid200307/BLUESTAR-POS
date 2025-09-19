@@ -4,9 +4,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import com.bluestar.app.Configuration.Settings;
+import com.bluestar.app.Controller.CoreController;
+import com.bluestar.app.Controller.Database;
 import com.bluestar.app.View.Screen;
-import com.bluestar.app.controller.CoreController;
-import com.bluestar.app.controller.Database;
 
 
 public class App {
@@ -28,7 +28,7 @@ public class App {
 
         Settings defaultSettings = new Settings();
 
-        // Screen instance with given screen dimentions and showing it
+        // Screen instance with given screen dimensions
         Screen appScreen = new Screen(screenDimension, title, defaultSettings);
         
         // Connects everything together db items to screen display, handles events

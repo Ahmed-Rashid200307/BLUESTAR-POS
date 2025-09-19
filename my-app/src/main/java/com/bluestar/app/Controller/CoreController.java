@@ -1,15 +1,12 @@
-package com.bluestar.app.controller;
+package com.bluestar.app.Controller;
 
-import java.awt.Dimension;
-import java.lang.reflect.Constructor;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.bluestar.app.Component.BasicPanel;
 import com.bluestar.app.Configuration.Settings;
 import com.bluestar.app.View.Screen;
-import com.google.gson.JsonObject;
 
 public class CoreController {
     
@@ -38,6 +35,7 @@ public class CoreController {
         mainScreen.setupPanels(defaulSettings.getSettingAsListMap("views").iterator());
   
         mainScreen.initializeActivePanel();
+        mainScreen.addButtonsToMenu();
         mainScreen.show();
     
         try {

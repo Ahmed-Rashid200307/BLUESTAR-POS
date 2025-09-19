@@ -22,4 +22,8 @@ public class BasicPanel extends JPanel{
     public boolean isActive(){
         return active;
     }
+
+    public String getName(){
+        return name;
+    }
 }

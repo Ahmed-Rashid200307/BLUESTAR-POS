@@ -1,4 +1,4 @@
-package com.bluestar.app.controller;
+package com.bluestar.app.Controller;
 
 import java.io.FileWriter;
 import java.io.IOException;

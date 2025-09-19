@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -13,15 +15,14 @@ import javax.swing.JMenuBar;
 import com.bluestar.app.Component.BasicPanel;
 import com.bluestar.app.Component.ScreenMenu;
 import com.bluestar.app.Configuration.Settings;
-import com.bluestar.app.controller.Utils;
-import com.google.gson.JsonObject;
+import com.bluestar.app.Controller.Utils;
 
 public class Screen {
 
     private Dimension screenDimension;
     private JFrame mainFrame = new JFrame();
-    private JMenuBar menuBar;
-    private ArrayList<BasicPanel> panels = new ArrayList<>();
+    private ScreenMenu menuBar;
+    private Map<String, BasicPanel> panels = new HashMap<>();
     private BasicPanel currentPanel;
     private String title;
 
@@ -34,19 +35,17 @@ public class Screen {
 
         this.screenDimension = screenDimension;
         this.title = title;
+
+        menuBar = getMenuBar();
+        addMenuToScreen();
         
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getContentPane().setBackground(new Color(0, 0, 0));
         setFrameTitle();
         setFrameDimension();
 
-        addMenuToScreen();
-        // this.screenPanes = getAllPaneInstances();
-        // this.currentPane = setCurrentPane();
 
 
-        // Creates and shows current main panel
-        // showCurrentBasicPanel();
     }
 
     private void setFrameTitle(){
@@ -64,7 +63,7 @@ public class Screen {
     }
 
     // New menu bar instance
-    private JMenuBar getMenuBar(){
+    private ScreenMenu getMenuBar(){
         return new ScreenMenu(screenDimension);
     }
 
@@ -77,14 +76,11 @@ public class Screen {
         try {
             if (validateActiveStates()){
     
-                panels.forEach((panel)-> {
-                      
-                    if (panel.isActive()){
-                        currentPanel = panel;
-                        mainFrame.add(currentPanel);
-                        
+                panels.entrySet().forEach((panel) ->{
+                    if(panel.getValue().isActive()){
+                        currentPanel = panel.getValue();
+                        mainFrame.setContentPane(currentPanel);
                     }
-    
                 });
             }
         } catch (Exception e) {
@@ -98,11 +94,11 @@ public class Screen {
 
         int activePanels = 0;
 
-        for(BasicPanel panel: panels){
-            
-            if(panel.isActive()){
-                activePanels ++;
+        for(Entry<String, BasicPanel> entry : panels.entrySet()){
+            if(entry.getValue().isActive()){
+                activePanels++;
             }
+
         }
 
         if (activePanels > 1){
@@ -126,27 +122,37 @@ public class Screen {
         
         while(panelsIterator.hasNext()){
             Map<String, Object> panel = panelsIterator.next();
-            System.out.println(panel.get("value"));
+
             try {
                 Class<?> c = Class.forName(panel.get("value").toString());
                 Constructor<?> cons = c.getConstructor(boolean.class ,String.class, boolean.class ,Dimension.class);
-                BasicPanel object = (BasicPanel)cons.newInstance((String)panel.get("name")
+                BasicPanel object = (BasicPanel)cons.newInstance(
+                (boolean)panel.get("visible")
+                , (String)panel.get("name")
                 , (boolean)panel.get("enabled")
                 , new Dimension(40, 40));
                 
                 if((boolean) panel.get("visible")){
                     object.setActive();
-                    panels.add(object);
+                    panels.put((String)panel.get("name"), object);
                 }
                 else{
-                    panels.add(object);
+                    panels.put((String)panel.get("name"), object);
                 }
             } catch (Exception e) {
-                System.out.println(e);
                 Utils.logError(e);
             }
             
         }
-        System.out.println(panels.size());
-    } 
+    }
+
+    public void addButtonsToMenu(){
+        
+        for(Entry<String, BasicPanel> entry : panels.entrySet()){
+            menuBar.setOptionsToDisplay(entry.getValue().getName());
+
+        }
+
+        menuBar.addOptionToMenu();
+    }
 }

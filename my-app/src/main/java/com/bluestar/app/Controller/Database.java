@@ -1,12 +1,10 @@
-package com.bluestar.app.controller;
+package com.bluestar.app.Controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import com.mysql.cj.protocol.Resultset;
 
 public class Database {
     private Connection connection;

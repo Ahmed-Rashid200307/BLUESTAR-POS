@@ -20,8 +20,6 @@ public class ScreenMenu extends JMenuBar{
 
         // Add as many buttons as needed provided the labels
         // by option it means button
-        setOptionsToDisplay("Inventory","Customer","Transactions");
-        addOptionToMenu();
     }
 
     private void setMenuBar(){
@@ -31,16 +29,20 @@ public class ScreenMenu extends JMenuBar{
     }
 
     // create button instance for each option and add to menuButtons
-    private void setOptionsToDisplay(String... labels){
+    public void setOptionsToDisplay(String label){
 
-        for(String label: labels){
-            menuButtons.add(new JButton(label));
-        }
+     
+        menuButtons.add(new JButton(label));
+        System.out.println(menuButtons.size());
+
 
     }
 
-    // Just simply adding to buttons to menuBar
-    private void addOptionToMenu() {
+    /**
+     * Adds all the buttons in the menuButtons list to the menu bar.
+     * 
+     */
+    public void addOptionToMenu() {
 
         menuButtons.forEach((btn) -> {
             this.add(btn);

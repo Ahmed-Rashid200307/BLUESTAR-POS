@@ -4,11 +4,8 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Map;
 
-import com.bluestar.app.controller.Utils;
+import com.bluestar.app.Controller.Utils;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 public class Settings {
